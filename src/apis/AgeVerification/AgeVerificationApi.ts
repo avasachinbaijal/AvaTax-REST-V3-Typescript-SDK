@@ -14,6 +14,7 @@
 
 
 import * as runtime from '../../runtime';
+import { RequestInit } from 'node-fetch';
 import {
     AgeVerifyFailureCode,
     AgeVerifyFailureCodeFromJSON,
@@ -58,10 +59,6 @@ export class AgeVerificationApi extends runtime.ApiClient {
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
         }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/api/v2/ageverification/verify`,
             method: 'POST',

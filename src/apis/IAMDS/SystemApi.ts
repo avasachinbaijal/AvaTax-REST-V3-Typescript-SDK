@@ -14,6 +14,7 @@
 
 
 import * as runtime from '../../runtime';
+import { RequestInit } from 'node-fetch';
 import {
     FeatureList,
     FeatureListFromJSON,
@@ -157,9 +158,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -207,9 +208,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -255,9 +256,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['If-None-Match'] = String(requestParameters.ifNoneMatch);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -324,9 +325,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -393,9 +394,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -462,9 +463,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -531,9 +532,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -596,9 +597,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -647,9 +648,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({
@@ -698,9 +699,9 @@ export class SystemApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.accessToken) {
+        if (this.configuration && this.configuration.bearerToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("OAuth", ["iam", "TestScope", "TestScope1"]);
+            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
         }
 
         const response = await this.request({

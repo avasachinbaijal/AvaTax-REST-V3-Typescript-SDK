@@ -12,8 +12,9 @@
  * Do not edit the class manually.
  */
 
-
-export const BASE_PATH = "http://localhost:3000".replace(/\/+$/, "");
+import fetch, { Response, RequestInfo, RequestInit } from 'node-fetch';
+export const PRODUCTION_TOKEN_URL = 'https://TO-BE-SET';
+export const SANDBOX_TOKEN_URL = 'https://TO-BE-SET';
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 
@@ -24,8 +25,8 @@ export class ApiClient {
 
     private middleware: Middleware[];
 
-    constructor(protected configuration = new Configuration()) {
-        this.middleware = configuration.middleware;
+    constructor(public configuration: Configuration) {
+        this.middleware = configuration.middleware || [];
     }
 
     withMiddleware<T extends ApiClient>(this: T, ...middlewares: Middleware[]) {
@@ -45,8 +46,9 @@ export class ApiClient {
     }
 
     protected async request(context: RequestOpts, initOverrides?: RequestInit): Promise<Response> {
-        const { url, init } = this.createFetchParams(context, initOverrides);
+        const { url, init, timeoutId } = this.createFetchParams(context, initOverrides);
         const response = await this.fetchApi(url, init);
+        clearTimeout(timeoutId);
         if (response.status >= 200 && response.status < 300) {
             return response;
         }
@@ -64,19 +66,22 @@ export class ApiClient {
         const body = ((typeof FormData !== "undefined" && context.body instanceof FormData) || context.body instanceof URLSearchParams || isBlob(context.body))
         ? context.body
         : JSON.stringify(context.body);
-
+        // timeout logic
+        const controller = new AbortController();
+        const timeout = this.configuration.timeout || 1200;
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
         const headers = Object.assign({}, this.configuration.headers, context.headers);
-        const init = {
+        const init: RequestInit = {
             method: context.method,
             headers: headers,
             body,
-            credentials: this.configuration.credentials,
+            signal: controller.signal,
             ...initOverrides
         };
-        return { url, init };
+        return { url, init, timeoutId };
     }
 
-    private fetchApi = async (url: string, init: RequestInit) => {
+    private fetchApi = async (url: RequestInfo, init?: RequestInit) => {
         let fetchParams = { url, init };
         for (const middleware of this.middleware) {
             if (middleware.pre) {
@@ -86,7 +91,8 @@ export class ApiClient {
                 }) || fetchParams;
             }
         }
-        let response = await (this.configuration.fetchApi || fetch)(fetchParams.url, fetchParams.init);
+        
+        let response = await fetch(fetchParams.url, fetchParams.init);
         for (const middleware of this.middleware) {
             if (middleware.post) {
                 response = await middleware.post({
@@ -126,31 +132,63 @@ export const COLLECTION_FORMATS = {
     pipes: "|",
 };
 
-export type FetchAPI = GlobalFetch['fetch'];
+export type FetchAPI = typeof fetch;
 
 export interface ConfigurationParameters {
-    basePath?: string; // override base path
-    fetchApi?: FetchAPI; // override for fetch implementation
+    testBasePath?: string; // override base path when using the test environment
+    testTokenUrl?: string // override token URL for OAuth 2.0 flows when using the test environment
+    // fetchApi?: FetchAPI; // override for fetch implementation
     middleware?: Middleware[]; // middleware to apply before/after fetch requests
     queryParamsStringify?: (params: HTTPQuery) => string; // stringify function for query strings
     username?: string; // parameter for basic security
     password?: string; // parameter for basic security
-    apiKey?: string | ((name: string) => string); // parameter for apiKey security
-    accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string | Promise<string>); // parameter for oauth2 security
+    bearerToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string | Promise<string>); // parameter for oauth2 security
     headers?: HTTPHeaders; //header params we want to use on every request
-    credentials?: RequestCredentials; //value for the credentials param we want to use on each request
+    appName: string; // Specify the name of your application here.  Should not contain any semicolons.
+    appVersion: string; // Specify the version number of your application here.  Should not contain any semicolons.
+    machineName: string; // Specify the machine name of the machine on which this code is executing here.  Should not contain any semicolons.
+    environment: AvaTaxEnvironment; // Indicates which server to use.
+    clientId?: string; // The ClientId used for the OAuth2 Client Credentials flow
+    clientSecret?: string; // The ClientSecret used for the OAuth2 Client Credentials flow
+    timeout?: number; // Specify the timeout for AvaTax requests in seconds; default value 20 minutes.
 }
 
 export class Configuration {
-    constructor(private configuration: ConfigurationParameters = {}) {}
+    constructor(private configuration: ConfigurationParameters) {}
 
     get basePath(): string {
-        return this.configuration.basePath != null ? this.configuration.basePath : BASE_PATH;
+        const { environment, testBasePath } = this.configuration;
+        let basePath = '';
+        if (environment === AvaTaxEnvironment.Sandbox) {
+            basePath = 'https://sandbox-rest.avatax.com';
+         } else if (environment === AvaTaxEnvironment.Production) {
+            basePath = 'https://rest.avatax.com';     
+         } else if (environment === AvaTaxEnvironment.Test) {
+            if (!testBasePath) {
+                throw new Error('TestBasePath must be configured to run in test environment mode.');
+            }
+            basePath = testBasePath; 
+         } else {
+            throw new Error('Environment not configured correctly, Acceptable values are "production", "sandbox", and "test".');
+         }
+        return basePath;
     }
 
-    get fetchApi(): FetchAPI | undefined {
-        return this.configuration.fetchApi;
+    get tokenUrl(): string {
+        const { environment, testTokenUrl } = this.configuration;
+        switch (environment) {
+            case AvaTaxEnvironment.Production:
+                return PRODUCTION_TOKEN_URL;
+            case AvaTaxEnvironment.Sandbox:
+                return SANDBOX_TOKEN_URL;
+            case AvaTaxEnvironment.Test:
+                return testTokenUrl ? testTokenUrl : PRODUCTION_TOKEN_URL;
+         }
     }
+
+    // get fetchApi(): FetchAPI | undefined {
+    //     return this.configuration.fetchApi;
+    // }
 
     get middleware(): Middleware[] {
         return this.configuration.middleware || [];
@@ -168,28 +206,20 @@ export class Configuration {
         return this.configuration.password;
     }
 
-    get apiKey(): ((name: string) => string) | undefined {
-        const apiKey = this.configuration.apiKey;
-        if (apiKey) {
-            return typeof apiKey === 'function' ? apiKey : () => apiKey;
-        }
-        return undefined;
+    get timeout(): number {
+        return this.configuration.timeout || 20;
     }
 
-    get accessToken(): ((name?: string, scopes?: string[]) => string | Promise<string>) | undefined {
-        const accessToken = this.configuration.accessToken;
-        if (accessToken) {
-            return typeof accessToken === 'function' ? accessToken : async () => accessToken;
+    get bearerToken(): ((name?: string, scopes?: string[]) => string | Promise<string>) | undefined {
+        const { bearerToken } = this.configuration;
+        if (bearerToken) {
+            return typeof bearerToken === 'function' ? bearerToken : async () => bearerToken;
         }
         return undefined;
     }
 
     get headers(): HTTPHeaders | undefined {
         return this.configuration.headers;
-    }
-
-    get credentials(): RequestCredentials | undefined {
-        return this.configuration.credentials;
     }
 }
 
@@ -262,20 +292,20 @@ export interface Consume {
 
 export interface RequestContext {
     fetch: FetchAPI;
-    url: string;
+    url: RequestInfo;
     init: RequestInit;
 }
 
 export interface ResponseContext {
     fetch: FetchAPI;
-    url: string;
+    url: RequestInfo;
     init: RequestInit;
     response: Response;
 }
 
 export interface Middleware {
-    pre?(context: RequestContext): Promise<FetchParams | void>;
-    post?(context: ResponseContext): Promise<Response | void>;
+    pre?(context: RequestContext): Promise<FetchParams>;
+    post?(context: ResponseContext): Promise<Response>;
 }
 
 export interface ApiResponse<T> {
@@ -317,4 +347,10 @@ export class TextApiResponse {
     async value(): Promise<string> {
         return await this.raw.text();
     };
+}
+
+export enum AvaTaxEnvironment {
+    Production = 'prod',
+    Sandbox = 'sandbox',
+    Test = 'test'
 }

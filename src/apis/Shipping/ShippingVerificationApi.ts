@@ -14,6 +14,7 @@
 
 
 import * as runtime from '../../runtime';
+import { RequestInit } from 'node-fetch';
 import {
     ErrorDetails,
     ErrorDetailsFromJSON,
@@ -75,10 +76,6 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
         }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/registration`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'DELETE',
@@ -119,10 +116,6 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
         }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/registration`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'PUT',
@@ -163,10 +156,6 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
         }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/registerIfCompliant`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'PUT',
@@ -209,10 +198,6 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
         }
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/verify`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'GET',
