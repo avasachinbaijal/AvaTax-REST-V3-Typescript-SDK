@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-      - run: npm publish dist
+      - run: cp ./README.md ./dist/README.md
+      - run: cp ./package.json ./dist/package.json
+      - run: npm publish ./dist
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
