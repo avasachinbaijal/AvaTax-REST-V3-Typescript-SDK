@@ -135,7 +135,8 @@ export class OrganizationApi extends runtime.ApiClient {
      */
     async createOrganizationsRaw(requestParameters: CreateOrganizationsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Organization>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -148,11 +149,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations`,
             method: 'POST',
@@ -183,7 +180,8 @@ export class OrganizationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -198,11 +196,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations/{organization-id}`.replace(`{${"organization-id"}}`, encodeURIComponent(String(requestParameters.organizationId))),
             method: 'DELETE',
@@ -231,7 +225,8 @@ export class OrganizationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -246,11 +241,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['If-None-Match'] = String(requestParameters.ifNoneMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations/{organization-id}`.replace(`{${"organization-id"}}`, encodeURIComponent(String(requestParameters.organizationId))),
             method: 'GET',
@@ -280,7 +271,8 @@ export class OrganizationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -315,11 +307,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations/{organization-id}/apps`.replace(`{${"organization-id"}}`, encodeURIComponent(String(requestParameters.organizationId))),
             method: 'GET',
@@ -349,7 +337,8 @@ export class OrganizationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -384,11 +373,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations/{organization-id}/tenants`.replace(`{${"organization-id"}}`, encodeURIComponent(String(requestParameters.organizationId))),
             method: 'GET',
@@ -418,7 +403,8 @@ export class OrganizationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -453,11 +439,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations/{organization-id}/users`.replace(`{${"organization-id"}}`, encodeURIComponent(String(requestParameters.organizationId))),
             method: 'GET',
@@ -483,7 +465,8 @@ export class OrganizationApi extends runtime.ApiClient {
      */
     async listOrganizationsRaw(requestParameters: ListOrganizationsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<OrganizationList>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -518,11 +501,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations`,
             method: 'GET',
@@ -552,7 +531,8 @@ export class OrganizationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -569,11 +549,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations/{organization-id}`.replace(`{${"organization-id"}}`, encodeURIComponent(String(requestParameters.organizationId))),
             method: 'PATCH',
@@ -603,7 +579,8 @@ export class OrganizationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -620,11 +597,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/organizations/{organization-id}`.replace(`{${"organization-id"}}`, encodeURIComponent(String(requestParameters.organizationId))),
             method: 'PUT',

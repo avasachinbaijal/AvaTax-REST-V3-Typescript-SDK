@@ -89,7 +89,8 @@ export class RoleApi extends runtime.ApiClient {
      */
     async createRoleRaw(requestParameters: CreateRoleRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Role>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -102,11 +103,7 @@ export class RoleApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/roles`,
             method: 'POST',
@@ -137,7 +134,8 @@ export class RoleApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -152,11 +150,7 @@ export class RoleApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/roles/{role-id}`.replace(`{${"role-id"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'DELETE',
@@ -185,7 +179,8 @@ export class RoleApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -200,11 +195,7 @@ export class RoleApi extends runtime.ApiClient {
             headerParameters['If-None-Match'] = String(requestParameters.ifNoneMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/roles/{role-id}`.replace(`{${"role-id"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'GET',
@@ -230,7 +221,8 @@ export class RoleApi extends runtime.ApiClient {
      */
     async listRolesRaw(requestParameters: ListRolesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<RoleList>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -265,11 +257,7 @@ export class RoleApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/roles`,
             method: 'GET',
@@ -299,7 +287,8 @@ export class RoleApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -314,11 +303,7 @@ export class RoleApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/roles/{role-id}`.replace(`{${"role-id"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'PATCH',
@@ -347,7 +332,8 @@ export class RoleApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -364,11 +350,7 @@ export class RoleApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/roles/{role-id}`.replace(`{${"role-id"}}`, encodeURIComponent(String(requestParameters.roleId))),
             method: 'PUT',

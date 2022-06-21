@@ -25,6 +25,7 @@ export class ApiClient {
 
     private middleware: Middleware[];
     public sdkVersion: string = null;
+    private accessTokenMap: Map<string, TokenMetadata> = new Map();
 
     constructor(public configuration: Configuration) {
         if (!configuration) {
@@ -57,6 +58,81 @@ export class ApiClient {
             return response;
         }
         throw response;
+    }
+
+    protected async applyAuthToRequest(headerParameters: HTTPHeaders, authNames: string[], requiredScopes: string) {
+        const { bearerToken, clientId, clientSecret, username, password } = this.configuration;
+        // for now, only support basic and oauth types.
+        if (bearerToken != null) {
+            headerParameters['Authorization'] = `Bearer ${bearerToken}`;
+        } else if (authNames.indexOf('OAuth') >= 0 && clientId && clientSecret) {
+            let scopes = this.standardizeScopes(requiredScopes);
+            let accessToken = this.getOAuthAccessToken(scopes);
+            if (!accessToken) {
+                await this.updateOAuthAccessToken(scopes, null);
+                accessToken = this.getOAuthAccessToken(scopes);
+            }
+            headerParameters['Authorization'] = `Bearer ${accessToken}`;
+        } else if (username != null && password != null) {
+            headerParameters['Authorization'] = this.createBasicAuthHeader(username, password);
+        }
+    }
+
+    private getOAuthAccessToken(scopes): string | null {
+        const tokenMetadata = this.accessTokenMap.get(scopes);
+        if (tokenMetadata) {
+            const { accessToken, expiry } = tokenMetadata;
+            const expirationTime = Math.floor(Date.now() / 1000) + 300;
+            if (expirationTime < expiry) {
+                return accessToken;
+            }
+        }
+        return null;
+     }
+
+    private async updateOAuthAccessToken(scopes, accessToken) {
+        const currentAccessToken = this.getOAuthAccessToken(scopes);
+        // If the current access token is not set, or the cached token equals the token passed in 
+        // (which will only be passed in, in the event the token failed due to being invalid or some other failure scenario)
+        if (!currentAccessToken || currentAccessToken === accessToken) {
+            try {
+                const data = await this.buildOAuthRequest(scopes);
+                let timestamp = Math.floor(Date.now() / 1000) + data['expires_in'];
+                this.accessTokenMap.set(scopes, { accessToken: data['access_token'], expiry: timestamp });
+            } catch (err) {
+                console.log(`OAuth2 Token retrieval failed. Error: ${err}`);
+                throw new Error(`OAuth2 Token retrieval failed. Error: ${err}`);
+            }
+        }
+     }
+
+    private async buildOAuthRequest(scopes: string) {
+        const { tokenUrl, clientId, clientSecret } = this.configuration;
+        const response = await fetch(tokenUrl, {
+            method: 'POST',
+            body: `grant_type=client_credentials&scope=${scopes}`,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': this.createBasicAuthHeader(clientId, clientSecret), 
+                'Accept': 'application/json'
+            }
+        }).then(res => {
+            return res.json();
+        });
+        return response;
+     }
+
+    private createBasicAuthHeader(username: string, password: string): string {
+        const base64Encoded = Buffer.from(`${username}:${password}`).toString(
+            'base64'
+        );
+        return `Basic ${base64Encoded}`;
+    }
+
+    private standardizeScopes(requiredScopes: string): string {
+        const strArr = requiredScopes.split(' ');
+        strArr.sort();
+        return strArr.join(' ');
     }
 
     private createFetchParams(context: RequestOpts, initOverrides?: RequestInit) {
@@ -140,6 +216,11 @@ export const COLLECTION_FORMATS = {
 
 export type FetchAPI = typeof fetch;
 
+export interface TokenMetadata {
+    accessToken: string;
+    expiry: number;
+}
+
 export interface ConfigurationParameters {
     testBasePath?: string; // override base path when using the test environment
     testTokenUrl?: string // override token URL for OAuth 2.0 flows when using the test environment
@@ -192,10 +273,6 @@ export class Configuration {
          }
     }
 
-    // get fetchApi(): FetchAPI | undefined {
-    //     return this.configuration.fetchApi;
-    // }
-
     get middleware(): Middleware[] {
         return this.configuration.middleware || [];
     }
@@ -222,6 +299,14 @@ export class Configuration {
 
     get password(): string | undefined {
         return this.configuration.password;
+    }
+
+    get clientId(): string {
+        return this.configuration.clientId;
+    }
+
+    get clientSecret(): string {
+        return this.configuration.clientSecret;
     }
 
     get timeout(): number {

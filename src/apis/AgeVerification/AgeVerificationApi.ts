@@ -52,7 +52,8 @@ export class AgeVerificationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "";
+        const authNames: string[] = ['BasicAuth', 'Bearer'];
         if (requestParameters.simulatedFailureCode !== undefined) {
             queryParameters['simulatedFailureCode'] = requestParameters.simulatedFailureCode;
         }
@@ -61,9 +62,7 @@ export class AgeVerificationApi extends runtime.ApiClient {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/api/v2/ageverification/verify`,
             method: 'POST',

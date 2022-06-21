@@ -90,7 +90,8 @@ export class EntitlementApi extends runtime.ApiClient {
      */
     async createEntitlementRaw(requestParameters: CreateEntitlementRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Entitlement>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -103,11 +104,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/entitlements`,
             method: 'POST',
@@ -138,7 +135,8 @@ export class EntitlementApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -153,11 +151,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/entitlements/{entitlement-id}`.replace(`{${"entitlement-id"}}`, encodeURIComponent(String(requestParameters.entitlementId))),
             method: 'DELETE',
@@ -186,7 +180,8 @@ export class EntitlementApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -201,11 +196,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headerParameters['If-None-Match'] = String(requestParameters.ifNoneMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/entitlements/{entitlement-id}`.replace(`{${"entitlement-id"}}`, encodeURIComponent(String(requestParameters.entitlementId))),
             method: 'GET',
@@ -231,7 +222,8 @@ export class EntitlementApi extends runtime.ApiClient {
      */
     async listEntitlementsRaw(requestParameters: ListEntitlementsRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<EntitlementList>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -266,11 +258,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/entitlements`,
             method: 'GET',
@@ -300,7 +288,8 @@ export class EntitlementApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -317,11 +306,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/entitlements/{entitlement-id}`.replace(`{${"entitlement-id"}}`, encodeURIComponent(String(requestParameters.entitlementId))),
             method: 'PATCH',
@@ -351,7 +336,8 @@ export class EntitlementApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -368,11 +354,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/entitlements/{entitlement-id}`.replace(`{${"entitlement-id"}}`, encodeURIComponent(String(requestParameters.entitlementId))),
             method: 'PUT',

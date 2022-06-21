@@ -105,7 +105,8 @@ export class ResourceApi extends runtime.ApiClient {
      */
     async createResourceRaw(requestParameters: CreateResourceRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Resource>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -118,11 +119,7 @@ export class ResourceApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/resources`,
             method: 'POST',
@@ -153,7 +150,8 @@ export class ResourceApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -164,11 +162,7 @@ export class ResourceApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/resources/{resource-id}`.replace(`{${"resource-id"}}`, encodeURIComponent(String(requestParameters.resourceId))),
             method: 'DELETE',
@@ -197,7 +191,8 @@ export class ResourceApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters.avalaraVersion !== undefined && requestParameters.avalaraVersion !== null) {
@@ -216,11 +211,7 @@ export class ResourceApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/resources/{resource-id}`.replace(`{${"resource-id"}}`, encodeURIComponent(String(requestParameters.resourceId))),
             method: 'GET',
@@ -250,7 +241,8 @@ export class ResourceApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -285,11 +277,7 @@ export class ResourceApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/resources/{resource-id}/permissions`.replace(`{${"resource-id"}}`, encodeURIComponent(String(requestParameters.resourceId))),
             method: 'GET',
@@ -315,7 +303,8 @@ export class ResourceApi extends runtime.ApiClient {
      */
     async listResourcesRaw(requestParameters: ListResourcesRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ResourceList>> {
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         if (requestParameters.$filter !== undefined) {
             queryParameters['$filter'] = requestParameters.$filter;
         }
@@ -350,11 +339,7 @@ export class ResourceApi extends runtime.ApiClient {
             headerParameters['X-Correlation-Id'] = String(requestParameters.xCorrelationId);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/resources`,
             method: 'GET',
@@ -384,7 +369,8 @@ export class ResourceApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -401,11 +387,7 @@ export class ResourceApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/resources/{resource-id}`.replace(`{${"resource-id"}}`, encodeURIComponent(String(requestParameters.resourceId))),
             method: 'PATCH',
@@ -435,7 +417,8 @@ export class ResourceApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "iam TestScope TestScope1";
+        const authNames: string[] = ['OAuth'];
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
@@ -452,11 +435,7 @@ export class ResourceApi extends runtime.ApiClient {
             headerParameters['If-Match'] = String(requestParameters.ifMatch);
         }
 
-        if (this.configuration && this.configuration.bearerToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${this.configuration.bearerToken}`;
-        }
-
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/resources/{resource-id}`.replace(`{${"resource-id"}}`, encodeURIComponent(String(requestParameters.resourceId))),
             method: 'PUT',

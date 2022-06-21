@@ -71,16 +71,15 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "";
+        const authNames: string[] = ['BasicAuth', 'Bearer'];
         if (requestParameters.documentType !== undefined) {
             queryParameters['documentType'] = requestParameters.documentType;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/registration`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'DELETE',
@@ -111,16 +110,15 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "";
+        const authNames: string[] = ['BasicAuth', 'Bearer'];
         if (requestParameters.documentType !== undefined) {
             queryParameters['documentType'] = requestParameters.documentType;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/registration`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'PUT',
@@ -151,16 +149,15 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "";
+        const authNames: string[] = ['BasicAuth', 'Bearer'];
         if (requestParameters.documentType !== undefined) {
             queryParameters['documentType'] = requestParameters.documentType;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/registerIfCompliant`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'PUT',
@@ -193,16 +190,15 @@ export class ShippingVerificationApi extends runtime.ApiClient {
         }
 
         const queryParameters: any = {};
-
+        const requiredScopes = "";
+        const authNames: string[] = ['BasicAuth', 'Bearer'];
         if (requestParameters.documentType !== undefined) {
             queryParameters['documentType'] = requestParameters.documentType;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
+        await this.applyAuthToRequest(headerParameters, authNames, requiredScopes);
         const response = await this.request({
             path: `/api/v2/companies/{companyCode}/transactions/{transactionCode}/shipment/verify`.replace(`{${"companyCode"}}`, encodeURIComponent(String(requestParameters.companyCode))).replace(`{${"transactionCode"}}`, encodeURIComponent(String(requestParameters.transactionCode))),
             method: 'GET',
