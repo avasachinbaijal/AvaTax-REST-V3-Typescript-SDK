@@ -16,7 +16,7 @@ import fetch, { Response, RequestInfo, RequestInit } from 'node-fetch';
 export const PRODUCTION_TOKEN_URL = 'https://TO-BE-SET';
 export const SANDBOX_TOKEN_URL = 'https://TO-BE-SET';
 
-const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
+const isBlob = (value: any) => (typeof Blob) !== 'undefined' && value instanceof Blob;
 
 /**
  * This is the base class for all generated API classes.
@@ -24,8 +24,12 @@ const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof B
 export class ApiClient {
 
     private middleware: Middleware[];
+    public sdkVersion: string = null;
 
     constructor(public configuration: Configuration) {
+        if (!configuration) {
+            throw new Error('Configuration object is a required parameter for ApiClient.');
+        }
         this.middleware = configuration.middleware || [];
     }
 
@@ -71,9 +75,11 @@ export class ApiClient {
         const timeout = this.configuration.timeout || 1200;
         const timeoutId = setTimeout(() => controller.abort(), timeout);
         const headers = Object.assign({}, this.configuration.headers, context.headers);
+        const { appName, appVersion, machineName } = this.configuration;
+        headers['X-Avalara-Client'] = `${appName}; ${appVersion}; JavascriptSdk; ${this.sdkVersion}; ${machineName}`
         const init: RequestInit = {
             method: context.method,
-            headers: headers,
+            headers,
             body,
             signal: controller.signal,
             ...initOverrides
@@ -196,6 +202,18 @@ export class Configuration {
 
     get queryParamsStringify(): (params: HTTPQuery) => string {
         return this.configuration.queryParamsStringify || querystring;
+    }
+
+    get appName(): string {
+        return this.configuration.appName;
+    }
+
+    get appVersion(): string {
+        return this.configuration.appVersion;
+    }
+
+    get machineName(): string {
+        return this.configuration.machineName;
     }
 
     get username(): string | undefined {
