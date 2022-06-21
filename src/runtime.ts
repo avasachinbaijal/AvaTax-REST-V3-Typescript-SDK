@@ -50,12 +50,23 @@ export class ApiClient {
         return this.withMiddleware<T>(...middlewares);
     }
 
-    protected async request(context: RequestOpts, initOverrides?: RequestInit): Promise<Response> {
+    protected async request(context: RequestOpts, initOverrides?: RequestInit, requiredScopes: string = '', isRetry: boolean = false): Promise<Response> {
         const { url, init, timeoutId } = this.createFetchParams(context, initOverrides);
+        const { clientId, clientSecret } = this.configuration;
         const response = await this.fetchApi(url, init);
+        const { status, headers } = response;
         clearTimeout(timeoutId);
-        if (response.status >= 200 && response.status < 300) {
+        if (status >= 200 && status < 300) {
             return response;
+        }
+        // Retry logic for OAuth token failure, if we receive 401 or 403 back, try to fetch a new token and make the API call a second time. If that fails again, return error as normal to the caller.
+        if ((status === 401 || status === 403) && clientId && clientSecret) {
+            const authHeader = headers.Authorization;
+            const authHeaderValues = authHeader && authHeader.split(' ');
+            if (authHeaderValues && authHeaderValues.length === 2 && !isRetry) {
+                await this.updateOAuthAccessToken(requiredScopes, authHeaderValues[1]);
+                return this.request(context, initOverrides, requiredScopes, true);
+            }
         }
         throw response;
     }

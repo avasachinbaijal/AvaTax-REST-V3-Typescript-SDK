@@ -85,7 +85,7 @@ export class ShippingVerificationApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -124,7 +124,7 @@ export class ShippingVerificationApi extends runtime.ApiClient {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -163,7 +163,7 @@ export class ShippingVerificationApi extends runtime.ApiClient {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ShippingVerifyResultFromJSON(jsonValue));
     }
@@ -204,7 +204,7 @@ export class ShippingVerificationApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ShippingVerifyResultFromJSON(jsonValue));
     }

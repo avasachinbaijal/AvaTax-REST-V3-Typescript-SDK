@@ -249,7 +249,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -298,7 +298,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -343,7 +343,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -383,7 +383,7 @@ export class TenantApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: TenantToJSON(requestParameters.tenant),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TenantFromJSON(jsonValue));
     }
@@ -429,7 +429,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -474,7 +474,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TenantFromJSON(jsonValue));
     }
@@ -540,7 +540,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceListFromJSON(jsonValue));
     }
@@ -606,7 +606,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitlementListFromJSON(jsonValue));
     }
@@ -672,7 +672,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GroupListFromJSON(jsonValue));
     }
@@ -742,7 +742,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GrantListFromJSON(jsonValue));
     }
@@ -812,7 +812,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GroupListFromJSON(jsonValue));
     }
@@ -878,7 +878,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserListFromJSON(jsonValue));
     }
@@ -940,7 +940,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TenantListFromJSON(jsonValue));
     }
@@ -989,7 +989,7 @@ export class TenantApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: TenantToJSON(requestParameters.tenant),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1034,7 +1034,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1083,7 +1083,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1128,7 +1128,7 @@ export class TenantApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -1176,7 +1176,7 @@ export class TenantApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: TenantToJSON(requestParameters.tenant),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

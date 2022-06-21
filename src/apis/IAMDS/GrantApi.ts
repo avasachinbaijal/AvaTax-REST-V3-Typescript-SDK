@@ -111,7 +111,7 @@ export class GrantApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: GrantToJSON(requestParameters.grant),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GrantFromJSON(jsonValue));
     }
@@ -157,7 +157,7 @@ export class GrantApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -202,7 +202,7 @@ export class GrantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GrantFromJSON(jsonValue));
     }
@@ -264,7 +264,7 @@ export class GrantApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GrantListFromJSON(jsonValue));
     }
@@ -313,7 +313,7 @@ export class GrantApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: GrantToJSON(requestParameters.grant),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -361,7 +361,7 @@ export class GrantApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: GrantToJSON(requestParameters.grant),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

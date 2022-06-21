@@ -126,7 +126,7 @@ export class UserApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: UserToJSON(requestParameters.user),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserFromJSON(jsonValue));
     }
@@ -172,7 +172,7 @@ export class UserApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -217,7 +217,7 @@ export class UserApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserFromJSON(jsonValue));
     }
@@ -283,7 +283,7 @@ export class UserApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TenantListFromJSON(jsonValue));
     }
@@ -345,7 +345,7 @@ export class UserApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserListFromJSON(jsonValue));
     }
@@ -394,7 +394,7 @@ export class UserApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: UserToJSON(requestParameters.user),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -442,7 +442,7 @@ export class UserApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: UserToJSON(requestParameters.user),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

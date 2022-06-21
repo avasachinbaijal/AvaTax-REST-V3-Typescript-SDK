@@ -171,7 +171,7 @@ export class SystemApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: SystemToJSON(requestParameters.system),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SystemFromJSON(jsonValue));
     }
@@ -217,7 +217,7 @@ export class SystemApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -262,7 +262,7 @@ export class SystemApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SystemFromJSON(jsonValue));
     }
@@ -328,7 +328,7 @@ export class SystemApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FeatureListFromJSON(jsonValue));
     }
@@ -394,7 +394,7 @@ export class SystemApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GrantListFromJSON(jsonValue));
     }
@@ -460,7 +460,7 @@ export class SystemApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResourceListFromJSON(jsonValue));
     }
@@ -526,7 +526,7 @@ export class SystemApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RoleListFromJSON(jsonValue));
     }
@@ -588,7 +588,7 @@ export class SystemApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SystemListFromJSON(jsonValue));
     }
@@ -637,7 +637,7 @@ export class SystemApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: SystemToJSON(requestParameters.system),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -685,7 +685,7 @@ export class SystemApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: SystemToJSON(requestParameters.system),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

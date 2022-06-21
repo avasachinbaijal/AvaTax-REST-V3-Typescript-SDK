@@ -157,7 +157,7 @@ export class DeviceApi extends runtime.ApiClient {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -197,7 +197,7 @@ export class DeviceApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: DeviceToJSON(requestParameters.device),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceFromJSON(jsonValue));
     }
@@ -243,7 +243,7 @@ export class DeviceApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -288,7 +288,7 @@ export class DeviceApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceFromJSON(jsonValue));
     }
@@ -354,7 +354,7 @@ export class DeviceApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GroupListFromJSON(jsonValue));
     }
@@ -420,7 +420,7 @@ export class DeviceApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceListFromJSON(jsonValue));
     }
@@ -482,7 +482,7 @@ export class DeviceApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceListFromJSON(jsonValue));
     }
@@ -531,7 +531,7 @@ export class DeviceApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: DeviceToJSON(requestParameters.device),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -576,7 +576,7 @@ export class DeviceApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -624,7 +624,7 @@ export class DeviceApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: DeviceToJSON(requestParameters.device),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

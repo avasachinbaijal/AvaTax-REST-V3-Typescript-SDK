@@ -126,7 +126,7 @@ export class ResourceApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: ResourceToJSON(requestParameters.resource),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResourceFromJSON(jsonValue));
     }
@@ -168,7 +168,7 @@ export class ResourceApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -217,7 +217,7 @@ export class ResourceApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResourceFromJSON(jsonValue));
     }
@@ -283,7 +283,7 @@ export class ResourceApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PermissionListFromJSON(jsonValue));
     }
@@ -345,7 +345,7 @@ export class ResourceApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResourceListFromJSON(jsonValue));
     }
@@ -394,7 +394,7 @@ export class ResourceApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: ResourceToJSON(requestParameters.resource),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -442,7 +442,7 @@ export class ResourceApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: ResourceToJSON(requestParameters.resource),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

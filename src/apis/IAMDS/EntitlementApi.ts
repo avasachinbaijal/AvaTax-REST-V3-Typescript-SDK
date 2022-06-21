@@ -111,7 +111,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: EntitlementToJSON(requestParameters.entitlement),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitlementFromJSON(jsonValue));
     }
@@ -157,7 +157,7 @@ export class EntitlementApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -202,7 +202,7 @@ export class EntitlementApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitlementFromJSON(jsonValue));
     }
@@ -264,7 +264,7 @@ export class EntitlementApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntitlementListFromJSON(jsonValue));
     }
@@ -313,7 +313,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: EntitlementToJSON(requestParameters.entitlement),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -361,7 +361,7 @@ export class EntitlementApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: EntitlementToJSON(requestParameters.entitlement),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

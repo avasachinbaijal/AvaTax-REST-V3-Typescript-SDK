@@ -126,7 +126,7 @@ export class FeatureApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: FeatureToJSON(requestParameters.feature),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FeatureFromJSON(jsonValue));
     }
@@ -172,7 +172,7 @@ export class FeatureApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -217,7 +217,7 @@ export class FeatureApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FeatureFromJSON(jsonValue));
     }
@@ -283,7 +283,7 @@ export class FeatureApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => GrantListFromJSON(jsonValue));
     }
@@ -345,7 +345,7 @@ export class FeatureApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FeatureListFromJSON(jsonValue));
     }
@@ -394,7 +394,7 @@ export class FeatureApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: FeatureToJSON(requestParameters.feature),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -442,7 +442,7 @@ export class FeatureApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: FeatureToJSON(requestParameters.feature),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

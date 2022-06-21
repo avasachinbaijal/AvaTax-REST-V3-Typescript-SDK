@@ -12,7 +12,7 @@ const configParams: Runtime.ConfigurationParameters = {
     machineName: 'test-machine',
     timeout:3000,
     username,
-    password
+    password,
 };
 
 describe('Integration Test Shipping Verification API: ', () => {

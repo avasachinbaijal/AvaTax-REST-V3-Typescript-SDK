@@ -156,7 +156,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: OrganizationToJSON(requestParameters.organization),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OrganizationFromJSON(jsonValue));
     }
@@ -202,7 +202,7 @@ export class OrganizationApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -247,7 +247,7 @@ export class OrganizationApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OrganizationFromJSON(jsonValue));
     }
@@ -313,7 +313,7 @@ export class OrganizationApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppListFromJSON(jsonValue));
     }
@@ -379,7 +379,7 @@ export class OrganizationApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TenantListFromJSON(jsonValue));
     }
@@ -445,7 +445,7 @@ export class OrganizationApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserListFromJSON(jsonValue));
     }
@@ -507,7 +507,7 @@ export class OrganizationApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OrganizationListFromJSON(jsonValue));
     }
@@ -556,7 +556,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: OrganizationToJSON(requestParameters.organization),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -604,7 +604,7 @@ export class OrganizationApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: OrganizationToJSON(requestParameters.organization),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

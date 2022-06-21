@@ -148,7 +148,7 @@ export class AppApi extends runtime.ApiClient {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -188,7 +188,7 @@ export class AppApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: AppToJSON(requestParameters.app),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppFromJSON(jsonValue));
     }
@@ -230,7 +230,7 @@ export class AppApi extends runtime.ApiClient {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.TextApiResponse(response) as any;
     }
@@ -276,7 +276,7 @@ export class AppApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -321,7 +321,7 @@ export class AppApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppFromJSON(jsonValue));
     }
@@ -387,7 +387,7 @@ export class AppApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppListFromJSON(jsonValue));
     }
@@ -449,7 +449,7 @@ export class AppApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppListFromJSON(jsonValue));
     }
@@ -498,7 +498,7 @@ export class AppApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: AppToJSON(requestParameters.app),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -543,7 +543,7 @@ export class AppApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -591,7 +591,7 @@ export class AppApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: AppToJSON(requestParameters.app),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

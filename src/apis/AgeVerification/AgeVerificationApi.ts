@@ -69,7 +69,7 @@ export class AgeVerificationApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: AgeVerifyRequestToJSON(requestParameters.ageVerifyRequest),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AgeVerifyResultFromJSON(jsonValue));
     }

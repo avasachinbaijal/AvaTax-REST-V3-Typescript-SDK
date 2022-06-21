@@ -110,7 +110,7 @@ export class RoleApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: RoleToJSON(requestParameters.role),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RoleFromJSON(jsonValue));
     }
@@ -156,7 +156,7 @@ export class RoleApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -201,7 +201,7 @@ export class RoleApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RoleFromJSON(jsonValue));
     }
@@ -263,7 +263,7 @@ export class RoleApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RoleListFromJSON(jsonValue));
     }
@@ -309,7 +309,7 @@ export class RoleApi extends runtime.ApiClient {
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -357,7 +357,7 @@ export class RoleApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: RoleToJSON(requestParameters.role),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }

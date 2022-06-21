@@ -111,7 +111,7 @@ export class PermissionApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: PermissionToJSON(requestParameters.permission),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PermissionFromJSON(jsonValue));
     }
@@ -157,7 +157,7 @@ export class PermissionApi extends runtime.ApiClient {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -202,7 +202,7 @@ export class PermissionApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PermissionFromJSON(jsonValue));
     }
@@ -264,7 +264,7 @@ export class PermissionApi extends runtime.ApiClient {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PermissionListFromJSON(jsonValue));
     }
@@ -313,7 +313,7 @@ export class PermissionApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: PermissionToJSON(requestParameters.permission),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -361,7 +361,7 @@ export class PermissionApi extends runtime.ApiClient {
             headers: headerParameters,
             query: queryParameters,
             body: PermissionToJSON(requestParameters.permission),
-        }, initOverrides);
+        }, initOverrides, requiredScopes);
 
         return new runtime.VoidApiResponse(response);
     }
