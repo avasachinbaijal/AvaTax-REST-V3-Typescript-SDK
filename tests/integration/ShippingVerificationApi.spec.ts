@@ -22,7 +22,7 @@ describe('Integration Test Shipping Verification API: ', () => {
     let api: AvalaraSdk.Shipping.ShippingVerificationApi;
 
     beforeEach(() => {
-        api = new AvalaraSdk.Shipping.ShippingVerificationApi(config);
+        api = new AvalaraSdk.Shipping.ShippingVerificationApi(client);
     });
 
     it('should be able to call Verify Shipment endpoint', (done) => {

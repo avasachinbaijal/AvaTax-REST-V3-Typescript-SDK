@@ -165,6 +165,11 @@ export interface ReplaceGroupRequest {
  * 
  */
 export class GroupApi extends runtime.ApiClient {
+    public sdkVersion: string = '2.4.41';
+
+    constructor(apiClient: runtime.ApiClient) {
+        super(apiClient.configuration);
+    }
 
     /**
      * Adds a device to a group.

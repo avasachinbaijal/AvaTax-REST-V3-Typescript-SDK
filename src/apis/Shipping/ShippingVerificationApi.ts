@@ -52,6 +52,11 @@ export interface VerifyShipmentRequest {
  * 
  */
 export class ShippingVerificationApi extends runtime.ApiClient {
+    public sdkVersion: string = '2.4.41';
+
+    constructor(apiClient: runtime.ApiClient) {
+        super(apiClient.configuration);
+    }
 
     /**
      * Removes the transaction from consideration when evaluating regulations that span multiple transactions.

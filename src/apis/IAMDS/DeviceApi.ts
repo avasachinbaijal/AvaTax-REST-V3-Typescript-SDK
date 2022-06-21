@@ -119,6 +119,11 @@ export interface ReplaceDeviceRequest {
  * 
  */
 export class DeviceApi extends runtime.ApiClient {
+    public sdkVersion: string = '2.4.41';
+
+    constructor(apiClient: runtime.ApiClient) {
+        super(apiClient.configuration);
+    }
 
     /**
      * Adds a grant to a device.

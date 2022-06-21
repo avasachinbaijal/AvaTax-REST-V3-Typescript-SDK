@@ -77,6 +77,11 @@ export interface ReplaceRoleRequest {
  * 
  */
 export class RoleApi extends runtime.ApiClient {
+    public sdkVersion: string = '2.4.41';
+
+    constructor(apiClient: runtime.ApiClient) {
+        super(apiClient.configuration);
+    }
 
     /**
      * The response contains the same object as posted and fills in the newly assigned role ID.
