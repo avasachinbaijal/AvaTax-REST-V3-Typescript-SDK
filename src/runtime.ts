@@ -27,7 +27,7 @@ export class ApiClient {
     private middleware: Middleware[];
     public sdkVersion: string = null;
     private accessTokenMap: Map<string, TokenMetadata> = new Map();
-    public tokenUrl = null;
+    public tokenUrl: string = null;
 
     constructor(public configuration: Configuration) {
         if (!configuration) {
@@ -137,13 +137,20 @@ export class ApiClient {
      }
 
     private async populateTokenUrl(openIdConnectUrl: string) {
-        const { environment, testTokenUrl } = this.configuration;
-        if(environment === AvaTaxEnvironment.Test ) {
-            this.tokenUrl = testTokenUrl;
-        } else if (this.tokenUrl == null || this.tokenUrl.length == 0) {
-            const tokenUrlResponse = await this.getTokenUrl(openIdConnectUrl);
-            this.tokenUrl = tokenUrlResponse.token_endpoint;
-        }
+        
+            const { environment, testTokenUrl } = this.configuration;
+            if (environment === AvaTaxEnvironment.Test) {
+                this.tokenUrl = testTokenUrl;
+            } else if (this.tokenUrl == null || this.tokenUrl.length == 0) {
+                try {
+                    const tokenUrlResponse = await this.getTokenUrl(openIdConnectUrl);
+                    this.tokenUrl = tokenUrlResponse.token_endpoint;
+                } catch (err) {
+                    console.log(`Exception when calling OpenIdConnect to fetch the token endpoint: ${err}`);
+                    throw new Error(`Exception when calling OpenIdConnect to fetch the token endpoint. Error: ${err}`);
+                }
+            }            
+        
     }
 
      private async getTokenUrl(openIdConnectUrl: string) {
