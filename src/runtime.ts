@@ -13,8 +13,9 @@
  */
 
 import fetch, { Response, RequestInfo, RequestInit } from 'node-fetch';
-export const PRODUCTION_TOKEN_URL = 'https://TO-BE-SET';
-export const SANDBOX_TOKEN_URL = 'https://TO-BE-SET';
+export const PRODUCTION_OPENID_CONFIG_URL = 'https://identity.avalara.com/.well-known/openid-configuration';
+export const SANDBOX_OPENID_CONFIG_URL = 'https://ai-sbx.avlr.sh/.well-known/openid-configuration';
+export const QA_OPENID_CONFIG_URL = 'https://ai-awscqa.avlr.sh/.well-known/openid-configuration';
 
 const isBlob = (value: any) => (typeof Blob) !== 'undefined' && value instanceof Blob;
 
@@ -26,6 +27,7 @@ export class ApiClient {
     private middleware: Middleware[];
     public sdkVersion: string = null;
     private accessTokenMap: Map<string, TokenMetadata> = new Map();
+    public tokenUrl: string = null;
 
     constructor(public configuration: Configuration) {
         if (!configuration) {
@@ -118,8 +120,9 @@ export class ApiClient {
      }
 
     private async buildOAuthRequest(scopes: string) {
-        const { tokenUrl, clientId, clientSecret } = this.configuration;
-        const response = await fetch(tokenUrl, {
+        const { openIdConnectUrl, clientId, clientSecret } = this.configuration;
+        await this.populateTokenUrl(openIdConnectUrl);
+        const response = await fetch(this.tokenUrl, {
             method: 'POST',
             body: `grant_type=client_credentials&scope=${scopes}`,
             headers: {
@@ -131,6 +134,29 @@ export class ApiClient {
             return res.json();
         });
         return response;
+     }
+
+    private async populateTokenUrl(openIdConnectUrl: string) {
+        
+            const { environment, testTokenUrl } = this.configuration;
+            if (environment === AvaTaxEnvironment.Test) {
+                this.tokenUrl = testTokenUrl;
+            } else if (this.tokenUrl == null || this.tokenUrl.length == 0) {
+                try {
+                    const tokenUrlResponse = await this.getTokenUrl(openIdConnectUrl);
+                    this.tokenUrl = tokenUrlResponse.token_endpoint;
+                } catch (err) {
+                    console.log(`Exception when calling OpenIdConnect to fetch the token endpoint: ${err}`);
+                    throw new Error(`Exception when calling OpenIdConnect to fetch the token endpoint. Error: ${err}`);
+                }
+            }            
+        
+    }
+
+     private async getTokenUrl(openIdConnectUrl: string) {
+        let response = await fetch(openIdConnectUrl);
+        let decoded = await response.json() as IOpenIdConnectURLs;
+        return decoded;
      }
 
     private createBasicAuthHeader(username: string, password: string): string {
@@ -257,7 +283,7 @@ export class Configuration {
     get basePath(): string {
         const { environment, testBasePath } = this.configuration;
         let basePath = '';
-        if (environment === AvaTaxEnvironment.Sandbox) {
+        if (environment === AvaTaxEnvironment.Sandbox || environment === AvaTaxEnvironment.QA) {
             basePath = 'https://sandbox-rest.avatax.com';
          } else if (environment === AvaTaxEnvironment.Production) {
             basePath = 'https://rest.avatax.com';     
@@ -272,15 +298,15 @@ export class Configuration {
         return basePath;
     }
 
-    get tokenUrl(): string {
-        const { environment, testTokenUrl } = this.configuration;
+    get openIdConnectUrl(): string {
+        const { environment } = this.configuration;
         switch (environment) {
             case AvaTaxEnvironment.Production:
-                return PRODUCTION_TOKEN_URL;
+                return PRODUCTION_OPENID_CONFIG_URL;
             case AvaTaxEnvironment.Sandbox:
-                return SANDBOX_TOKEN_URL;
-            case AvaTaxEnvironment.Test:
-                return testTokenUrl ? testTokenUrl : PRODUCTION_TOKEN_URL;
+                return SANDBOX_OPENID_CONFIG_URL;
+            case AvaTaxEnvironment.QA:
+                return QA_OPENID_CONFIG_URL;
          }
     }
 
@@ -334,6 +360,14 @@ export class Configuration {
 
     get headers(): HTTPHeaders | undefined {
         return this.configuration.headers;
+    }
+
+    get environment(): AvaTaxEnvironment {
+        return this.configuration.environment;
+    }
+
+    get testTokenUrl(): string {
+        return this.configuration.testTokenUrl;
     }
 }
 
@@ -431,6 +465,10 @@ export interface ResponseTransformer<T> {
     (json: any): T;
 }
 
+export interface IOpenIdConnectURLs {
+    "token_endpoint": string
+}
+
 export class JSONApiResponse<T> {
     constructor(public raw: Response, private transformer: ResponseTransformer<T> = (jsonValue: any) => jsonValue) {}
 
@@ -466,5 +504,6 @@ export class TextApiResponse {
 export enum AvaTaxEnvironment {
     Production = 'prod',
     Sandbox = 'sandbox',
-    Test = 'test'
+    Test = 'test',
+    QA = 'qa'
 }

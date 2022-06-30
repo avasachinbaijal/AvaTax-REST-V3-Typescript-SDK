@@ -42,3 +42,25 @@ describe('Integration Test UserAPI: ', () => {
         }
     });
 });
+
+describe('Integration Test For Token Verification: ', () => {
+    configParams.environment = AvaTaxEnvironment.QA;
+    const config = new Configuration(configParams);
+    var client = new Runtime.ApiClient(config);
+    // const client = null;
+    let api: AvalaraSdk.IAMDS.UserApi;
+
+    beforeEach(() => {
+        api = new AvalaraSdk.IAMDS.UserApi(client);
+    });
+
+    it('Configuration token URL should be as expected', async () =>  {
+        try {
+            const result = await api.createUser();
+            console.log(result);
+        } catch (err) {
+            console.log(err);
+        }
+        expect(api.tokenUrl).toBe('https://ai-awscqa.avlr.sh/connect/token');
+    });
+});
